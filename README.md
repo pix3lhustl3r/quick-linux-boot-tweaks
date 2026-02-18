@@ -1,20 +1,15 @@
-# quick-linux-boot-tweaks
+# Fast Boot Tweaks for Linux Mint & Older Laptops
 
-# Linux Fast Boot Tweaks (especially for Linux Mint & older laptops)
+Reduce boot time from 30–60+ seconds down to ~5–15 seconds on many systems  
+(especially older laptops, HDDs, low-RAM machines, Linux Mint Cinnamon/XFCE/MATE).
 
-Goal: Reduce boot time from 30–60+ seconds down to ~5–15 seconds on many systems  
-(by accepting some trade-offs in security & debuggability).
+**Important trade-offs**  
+- Disables CPU vulnerability mitigations (`mitigations=off`) → faster, but **less secure**  
+- Turns off watchdog, verbose logging, graphical GRUB → prioritizes speed & reliability over looks/debugging  
+- Best for **single-user trusted laptops**, not servers or shared systems
 
-**Important warnings**  
-- `mitigations=off` disables **CPU vulnerability protections** (Spectre, Meltdown, etc.).  
-  → Use only on **trusted, single-user** laptops — **not** on shared/multi-user servers.  
-- `nowatchdog` disables lockup detection → slightly more performance, but harder to diagnose freezes.  
-- These changes prioritize **speed + reliability over nice visuals**.
+### One-step GRUB optimization (most effective change)
 
-Tested mostly on Linux Mint 21.x / 22.x and similar Ubuntu derivatives (2023–2026).
-
-### Quick Start (GRUB optimizations)
-
-1. **Backup** your current config
+1. **Backup** your current GRUB config
 ```bash
-sudo cp /etc/default/grub /etc/default/grub.bak-$(date +%F)
+sudo cp /etc/default/grub /etc/default/grub.backup-$(date +%F)
